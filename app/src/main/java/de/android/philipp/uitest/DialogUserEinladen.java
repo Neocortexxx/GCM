@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -12,13 +13,15 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DialogUserEinladen extends Dialog {
 
     HashMap<Integer,String> groupMap;
-    String[] groupList;
+    List<String> groupList;
 
     public DialogUserEinladen(Context context)
     {
@@ -94,7 +97,7 @@ public class DialogUserEinladen extends Dialog {
             groupMap = new HashMap<Integer,String>();
             groupMap.clear();
 
-            groupList = new String[1000];
+            groupList = new ArrayList<>();
         }
 
         protected String doInBackground(String... werte) {
@@ -120,14 +123,23 @@ public class DialogUserEinladen extends Dialog {
                     for (int i = 0; i < jArray.length(); i++) {
 
                         json_data = jArray.getJSONObject(i);
-                        groupList[i] = json_data.getString("groupname");
+                        groupList.add(json_data.getString("groupname"));
                         groupMap.put(json_data.getInt("ID"), json_data.getString("groupname"));
                     }
 
                     Spinner s = (Spinner) findViewById(R.id.spinnMyGroups);
+
+
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item, groupList);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     s.setAdapter(adapter);
+
+                    s.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        }
+                    });
                 }
             } catch (final Exception e) {
                 if(!result.equals("success"))
