@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+    android:background="#ff019fd1"
+    android:padding="10dp"
+    android:layout_marginTop="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/txtGroupTitle"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/txtGroupCreator"
+        android:layout_below="@+id/txtGroupTitle"
+        android:layout_alignLeft="@+id/txtGroupTitle"
+        android:layout_alignStart="@+id/txtGroupTitle"
+        android:layout_marginLeft="20dp"
+        android:textSize="14sp"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/txtGroupMemberCount"
+        android:textSize="14sp"
+        android:layout_below="@+id/txtGroupCreator"
+        android:layout_alignLeft="@+id/txtGroupCreator"
+        android:layout_alignStart="@+id/txtGroupCreator"
+        android:layout_marginTop="10dp" />
+</RelativeLayout>

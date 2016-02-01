@@ -1,0 +1,80 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="de.pb.swipetutorial.FragmentA"
+    android:background="#ffffffff">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+
+    <TableRow android:layout_weight="1">
+        <Button
+            android:layout_column="0"
+            android:text="News"
+            android:layout_weight="1"
+            android:layout_height="fill_parent"
+            android:id="@+id/btnNews" />
+    </TableRow>
+
+    <TableRow android:layout_weight="1">
+        <Button
+            android:layout_weight="1"
+            android:text="Profil"
+            android:layout_height="fill_parent"
+            android:id="@+id/btnProfil" />
+        <Button
+            android:layout_weight="1"
+            android:text="Meine Gruppen"
+            android:layout_height="fill_parent"
+            android:id="@+id/btnMyGroups"
+            android:layout_width="wrap_content" />
+    </TableRow>
+
+    <TableRow android:layout_weight="1">
+        <Button
+            android:layout_column="0"
+            android:layout_weight="1"
+            android:text="Benutzersuche"
+            android:layout_height="fill_parent"
+            android:id="@+id/btnUserSearch" />
+        <Button
+            android:layout_column="1"
+            android:layout_weight="1"
+            android:text="Gruppensuche"
+            android:layout_height="fill_parent"
+            android:id="@+id/btnGroupSearch" />
+    </TableRow>
+
+    <TableRow android:layout_weight="1">
+        <Button
+            android:layout_column="0"
+            android:layout_weight="1"
+            android:text="Freundesliste"
+            android:layout_height="fill_parent"
+            android:id="@+id/btnFriends" />
+        <Button
+            android:layout_column="1"
+            android:layout_weight="1"
+            android:text="Einstellungen"
+            android:layout_height="fill_parent"
+            android:id="@+id/btnSettings" />
+    </TableRow>
+
+    <TableRow android:layout_weight="1">
+        <Button
+            android:layout_column="0"
+            android:text="AGB"
+            android:layout_weight="1"
+            android:layout_height="fill_parent"
+            android:id="@+id/btnAGB" />
+    </TableRow>
+</TableLayout>
+</RelativeLayout>
