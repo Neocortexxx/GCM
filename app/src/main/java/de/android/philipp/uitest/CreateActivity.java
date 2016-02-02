@@ -65,55 +65,13 @@ public class CreateActivity extends Activity
                     break;
 
                 case R.id.btnEinladen:
-                    new InGruppeEinladenTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    //new InGruppeEinladenTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     break;
             }
         }
     };
 
-    public  class InGruppeEinladenTask extends AsyncTask<String, Void, String>
-    {
-        protected void onPreExecute()
-        {
 
-        }
-
-        public InGruppeEinladenTask()
-        {
-        }
-
-        protected String doInBackground(String... werte)
-        {
-            try
-            {
-                //String gruppenName = ((EditText)findViewById(R.id.txtZielgruppe)).getText().toString();
-                //String userName = ((EditText)findViewById(R.id.txtUser)).getText().toString();
-                //String result = InteractWithServer.InGruppeEinladen(gruppenName, userName, getUsername());
-                //return result;
-            }
-            catch (final Exception e)
-            {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        protected void onPostExecute(String result)
-        {
-            if(!result.equals("success"))
-                return;
-
-            Intent i = new Intent(getApplicationContext(),
-                    MainActivity.class);
-            i.putExtra("regId", regId);
-            Log.d("RegisterActivity",
-                    "onClick of Share: Before starting main activity.");
-            startActivity(i);
-            finish();
-            Log.d("RegisterActivity", "onClick of Share: After finish.");
-        }
-
-    }
 
 
 }

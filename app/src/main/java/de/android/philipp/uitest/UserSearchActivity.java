@@ -57,33 +57,12 @@ public class UserSearchActivity extends Activity
             if (_dialogUserEinladen == null)
             {
                 _dialogUserEinladen = new DialogUserEinladen(UserSearchActivity.this);
-                Helfer.LadeDialog(_dialogUserEinladen, R.layout.dialog_inviteuser, true, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, UserSearchActivity.this);
+                    Helfer.LadeDialog(_dialogUserEinladen, R.layout.dialog_inviteuser, true, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, UserSearchActivity.this);
                 _dialogUserEinladen.init();
             }
             _dialogUserEinladen.show();
         }
     };
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
     public  class GetAllUsersFromServerTask extends AsyncTask<String, Void, String> {
         LinearLayout alleEintraege;
