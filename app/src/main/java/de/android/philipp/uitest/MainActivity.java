@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
             switch (v.getId())
             {
                 case R.id.btnAGB:
-                    ActivityStarten(CreateActivity.class);
+                    //ActivityStarten(CreateActivity.class);
                     break;
                 case R.id.btnFriends:
                     ActivityStarten(FriendlistActivity.class);

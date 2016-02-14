@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
+        android:text="Gruppenname"
         android:id="@+id/txtGroupTitle"
         android:textSize="18sp" />
 
@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
+        android:text="Gruppenersteller"
         android:id="@+id/txtGroupCreator"
         android:layout_below="@+id/txtGroupTitle"
         android:layout_alignLeft="@+id/txtGroupTitle"
@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
+        android:text="Anzahl der Mitgleider"
         android:id="@+id/txtGroupMemberCount"
         android:textSize="14sp"
         android:layout_below="@+id/txtGroupCreator"

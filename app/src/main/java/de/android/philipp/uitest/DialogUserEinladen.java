@@ -25,6 +25,7 @@ public class DialogUserEinladen extends Dialog {
     HashMap<Integer,String> _groupMap;
     List<String> _groupList;
     String _selectedInviteGroup;
+    String _selectedUser;
     int _selectedInviteGroupID;
 
     public DialogUserEinladen(Context context)

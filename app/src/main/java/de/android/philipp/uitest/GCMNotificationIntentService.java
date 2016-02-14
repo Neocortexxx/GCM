@@ -51,7 +51,7 @@ public class GCMNotificationIntentService extends IntentService {
         PendingIntent contentIntentAnnehmen = PendingIntent.getActivity(this, 0, intentAnnehmen, PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent contentIntentAblehnen = PendingIntent.getActivity(this, 1, intentAblehnen, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        String msg = "Neue Gruppenanfrage von " + inviter + ": " + groupname;
+        String msg = "Neue Gruppenanfrage von " + inviter + ": Einladung in die Gruppe " + groupname;
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
                 this).setSmallIcon(R.drawable.hots)
                 .setContentTitle("GCM Notification")

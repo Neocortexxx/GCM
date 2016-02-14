@@ -8,9 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-/**
- * Created by Philipp on 10.01.2016.
- */
 public class DialogGruppeErstellen extends Dialog {
 
     public DialogGruppeErstellen(Context context)

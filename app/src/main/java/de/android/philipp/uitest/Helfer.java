@@ -3,6 +3,8 @@ package de.android.philipp.uitest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
@@ -48,5 +50,16 @@ public class Helfer {
         return registrationId;
     }
 
+    public static int getAppVersion(Context context) {
+        try {
+            PackageInfo packageInfo = context.getPackageManager()
+                    .getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.d("RegisterActivity",
+                    "I never expected this! Going down, going down!" + e);
+            throw new RuntimeException(e);
+        }
+    }
 
 }

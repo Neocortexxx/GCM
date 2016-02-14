@@ -3,7 +3,6 @@ package de.android.philipp.uitest;
 public interface Config {
 
     // used to share GCM regId with application server - using php app server
-    static final String APP_SERVER_URL = "http://lamp.wlan.hwr-berlin.de/museum/gcm/gcm.php?shareRegId=1";
     static final String REGISTER_URL = "http://lamp.wlan.hwr-berlin.de/museum/gcm/register.php?";
     static final String GROUP_URL = "http://lamp.wlan.hwr-berlin.de/museum/gcm/erstellen.php?";
     static final String INVITE_URL = "http://lamp.wlan.hwr-berlin.de/museum/gcm/einladen.php?";

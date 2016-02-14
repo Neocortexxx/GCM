@@ -38,7 +38,7 @@ public class RegisterActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        if(!getRegistrationId(this).equals("") && !getUsername().equals(""))
+        if(!Helfer.getRegistrationId(this).equals("") && !Helfer.getUsername(this).equals(""))
         {
             Intent i = new Intent(getApplicationContext(),MainActivity.class);
 
@@ -77,7 +77,7 @@ public class RegisterActivity extends Activity {
     public String registerGCM() {
 
         gcm = GoogleCloudMessaging.getInstance(this);
-        regId = getRegistrationId(context);
+        regId = Helfer.getRegistrationId(context);
 
         if (TextUtils.isEmpty(regId)) {
 
@@ -89,68 +89,29 @@ public class RegisterActivity extends Activity {
         } else {
             Toast.makeText(getApplicationContext(),
                     "RegId already available. RegId: " + regId,
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_SHORT).show();
         }
         return regId;
     }
 
-    private String getRegistrationId(Context context) {
-        final SharedPreferences prefs = getSharedPreferences(
-                MainActivity.class.getSimpleName(), Context.MODE_PRIVATE);
-        String registrationId = prefs.getString(REG_ID, "");
-        if (registrationId.isEmpty()) {
-            Log.i(TAG, "Registration not found.");
-            return "";
-        }
-        int registeredVersion = prefs.getInt(APP_VERSION, Integer.MIN_VALUE);
-        int currentVersion = getAppVersion(context);
-        if (registeredVersion != currentVersion) {
-            Log.i(TAG, "App version changed.");
-            return "";
-        }
-        return registrationId;
-    }
-
-    private String getUsername() {
-        final SharedPreferences prefs = getSharedPreferences(
-                MainActivity.class.getSimpleName(), Context.MODE_PRIVATE);
-        String regUsername = prefs.getString(REG_USERNAME, "");
-        if (regUsername.isEmpty()) {
-            Log.i(TAG, "Registration not found.");
-            return "";
-        }
-        return regUsername;
-    }
-
-    private static int getAppVersion(Context context) {
-        try {
-            PackageInfo packageInfo = context.getPackageManager()
-                    .getPackageInfo(context.getPackageName(), 0);
-            return packageInfo.versionCode;
-        } catch (NameNotFoundException e) {
-            Log.d("RegisterActivity",
-                    "I never expected this! Going down, going down!" + e);
-            throw new RuntimeException(e);
-        }
-    }
-
     public  class RegisterOnServer extends AsyncTask<String, Void, String>  {
+
+        String username;
+        String password;
         protected void onPreExecute()
         {
-
+            username = ((EditText)findViewById(R.id.txtRegisterName)).getText().toString();
+            password = ((EditText)findViewById(R.id.txtRegisterPassword)).getText().toString();
         }
-
         public RegisterOnServer()
         {
         }
-
         protected String doInBackground(String... werte)
         {
             try
             {
                 String result="";
-                String username = ((EditText)findViewById(R.id.txtRegisterName)).getText().toString();
-                String password = ((EditText)findViewById(R.id.txtRegisterPassword)).getText().toString();
+
                 if(!username.equals("") && !password.equals("")){
                     if(InteractWithServer.CheckUserName(username))
                     {
@@ -181,7 +142,6 @@ public class RegisterActivity extends Activity {
             }
             return null;
         }
-
         protected void onPostExecute(String result)
         {
             if(!result.equals("success"))
@@ -263,10 +223,6 @@ public class RegisterActivity extends Activity {
 
     }
 
-    private void registerInBackground() {
-        new RegisterInBackgroundTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-    }
-
     public  class RegisterInBackgroundTask extends AsyncTask<String, Void, String> {
         protected void onPreExecute()
         {
@@ -315,9 +271,12 @@ public class RegisterActivity extends Activity {
 
     }
 
+    private void registerInBackground() {
+        new RegisterInBackgroundTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
     private void StoreRegistrationId(Context context, String regId) {
         final SharedPreferences prefs = getSharedPreferences(MainActivity.class.getSimpleName(), Context.MODE_PRIVATE);
-        int appVersion = getAppVersion(context);
+        int appVersion = Helfer.getAppVersion(context);
         Log.i(TAG, "Saving regId on app version " + appVersion);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(REG_ID, regId);
@@ -326,7 +285,7 @@ public class RegisterActivity extends Activity {
     }
     private void StoreUsername(Context context) {
         final SharedPreferences prefs = getSharedPreferences(MainActivity.class.getSimpleName(), Context.MODE_PRIVATE);
-        int appVersion = getAppVersion(context);
+        int appVersion = Helfer.getAppVersion(context);
         Log.i(TAG, "Saving regId on app version " + appVersion);
         SharedPreferences.Editor editor = prefs.edit();
 
