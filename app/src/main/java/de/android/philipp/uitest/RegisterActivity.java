@@ -116,7 +116,7 @@ public class RegisterActivity extends Activity {
                     if(InteractWithServer.CheckUserName(username))
                     {
                         result = InteractWithServer.SaveUserDataOnServer(regId, username, password);
-                        StoreUsername(RegisterActivity.this);
+                        Helfer.StoreUsername(RegisterActivity.this, username);
                     }
                     else
                         runOnUiThread(new Runnable() {
@@ -179,7 +179,7 @@ public class RegisterActivity extends Activity {
                     if(InteractWithServer.CheckLogin(username, password))
                     {
                         result = "success";
-                        StoreUsername(RegisterActivity.this);
+                        Helfer.StoreUsername(RegisterActivity.this, username);
                         InteractWithServer.CheckRegistration(username, regId);
                     }
                     else
@@ -274,6 +274,7 @@ public class RegisterActivity extends Activity {
     private void registerInBackground() {
         new RegisterInBackgroundTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
+
     private void StoreRegistrationId(Context context, String regId) {
         final SharedPreferences prefs = getSharedPreferences(MainActivity.class.getSimpleName(), Context.MODE_PRIVATE);
         int appVersion = Helfer.getAppVersion(context);
@@ -283,14 +284,5 @@ public class RegisterActivity extends Activity {
         editor.putInt(APP_VERSION, appVersion);
         editor.commit();
     }
-    private void StoreUsername(Context context) {
-        final SharedPreferences prefs = getSharedPreferences(MainActivity.class.getSimpleName(), Context.MODE_PRIVATE);
-        int appVersion = Helfer.getAppVersion(context);
-        Log.i(TAG, "Saving regId on app version " + appVersion);
-        SharedPreferences.Editor editor = prefs.edit();
 
-        String username = ((EditText)findViewById(R.id.txtRegisterName)).getText().toString();
-        editor.putString(REG_USERNAME, username);
-        editor.commit();
-    }
 }

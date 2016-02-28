@@ -25,7 +25,8 @@ public class DialogUserEinladen extends Dialog {
     HashMap<Integer,String> _groupMap;
     List<String> _groupList;
     String _selectedInviteGroup;
-    String _selectedUser;
+    private String _regID;
+    private int _selectedUser;
     int _selectedInviteGroupID;
 
     public DialogUserEinladen(Context context)
@@ -33,8 +34,10 @@ public class DialogUserEinladen extends Dialog {
         super(context);
     }
 
-    public void init()
+    public void init(int selectedUser, String regID)
     {
+        _regID = regID;
+        _selectedUser = selectedUser;
         findViewById(R.id.btnDialogInviteUser).setOnClickListener(onClickListener);
         new MyGroupsToListServerTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
@@ -72,7 +75,7 @@ public class DialogUserEinladen extends Dialog {
             try {
                 String result = "";
 
-                result = InteractWithServer.GetMyGroupsFromServer(Helfer.getRegistrationId(getContext()));
+                result = InteractWithServer.GetMyGroupsFromServer(_regID);
 
                 return result;
             } catch (final Exception e) {
@@ -99,10 +102,9 @@ public class DialogUserEinladen extends Dialog {
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item, _groupList);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     s.setAdapter(adapter);
-                    s.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             _selectedInviteGroup = parent.getItemAtPosition(position).toString();
                             for(Map.Entry<Integer,String> e : _groupMap.entrySet())
                             {
@@ -111,6 +113,11 @@ public class DialogUserEinladen extends Dialog {
                                     _selectedInviteGroupID = e.getKey();
                                 }
                             }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
                         }
                     });
                 }
@@ -138,9 +145,8 @@ public class DialogUserEinladen extends Dialog {
         {
             try
             {
-                //TODO Username von angeklickten User holen
-                //String result = InteractWithServer.InGruppeEinladen(_selectedInviteGroupID, userName, Helfer.getUsername(getContext()));
-                //return result;
+                String result = InteractWithServer.InGruppeEinladen(_selectedInviteGroupID, _selectedUser, Helfer.getUsername(getContext()));
+                return result;
             }
             catch (final Exception e)
             {

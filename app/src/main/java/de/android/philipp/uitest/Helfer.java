@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 
 public class Helfer {
 
@@ -27,6 +28,16 @@ public class Helfer {
         dialog.getWindow().setAttributes(lp);
 
         dialog.setCancelable(cancelable);
+    }
+
+    public static  void StoreUsername(Context context, String username) {
+        final SharedPreferences prefs = context.getSharedPreferences(MainActivity.class.getSimpleName(), Context.MODE_PRIVATE);
+        int appVersion = Helfer.getAppVersion(context);
+        Log.i("Helfer", "Store username");
+        SharedPreferences.Editor editor = prefs.edit();
+
+        editor.putString(REG_USERNAME, username);
+        editor.commit();
     }
 
     public static String getUsername(Context context) {

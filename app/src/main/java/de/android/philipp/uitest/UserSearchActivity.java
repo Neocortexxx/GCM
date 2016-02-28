@@ -58,7 +58,7 @@ public class UserSearchActivity extends Activity
             {
                 _dialogUserEinladen = new DialogUserEinladen(UserSearchActivity.this);
                     Helfer.LadeDialog(_dialogUserEinladen, R.layout.dialog_inviteuser, true, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, UserSearchActivity.this);
-                _dialogUserEinladen.init();
+                _dialogUserEinladen.init(((UserSearchItem)v).getUserID(), Helfer.getRegistrationId(UserSearchActivity.this));
             }
             _dialogUserEinladen.show();
         }

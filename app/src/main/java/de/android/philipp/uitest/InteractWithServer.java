@@ -138,12 +138,12 @@ public class InteractWithServer {
         return result;
     }
 
-    public static String InGruppeEinladen(final String gruppenName, final String username, String inviter) {
+    public static String InGruppeEinladen(final int gruppenID, final int username, String inviter) {
 
         String result = "";
         Map paramsMap = new HashMap();
-        paramsMap.put("groupname", gruppenName);
-        paramsMap.put("username", username);
+        paramsMap.put("groupID", gruppenID);
+        paramsMap.put("userID", username);
         paramsMap.put("inviter", inviter);
 
         try {
