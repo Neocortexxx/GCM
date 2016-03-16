@@ -38,6 +38,8 @@ public class RegisterActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        regId = "";
+
         if(!Helfer.getRegistrationId(this).equals("") && !Helfer.getUsername(this).equals(""))
         {
             Intent i = new Intent(getApplicationContext(),MainActivity.class);
@@ -46,21 +48,12 @@ public class RegisterActivity extends Activity {
             finish();
         }
 
-        context = getApplicationContext();
-
-        if (TextUtils.isEmpty(regId)) {
-            regId = registerGCM();
-            Log.d("RegisterActivity", "GCM RegId: " + regId);
-        } else {
-            Toast.makeText(getApplicationContext(),
-                    "Already Registered with GCM Server!",
-                    Toast.LENGTH_LONG).show();
-        }
-
         btnRegister = (Button) findViewById(R.id.btnRegister);
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
+
+                regId = registerGCM();
                 new RegisterOnServer().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
         });
@@ -69,6 +62,8 @@ public class RegisterActivity extends Activity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
+
+                regId = registerGCM();
                 new LoginOnServer().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
         });
@@ -77,18 +72,16 @@ public class RegisterActivity extends Activity {
     public String registerGCM() {
 
         gcm = GoogleCloudMessaging.getInstance(this);
-        regId = Helfer.getRegistrationId(context);
+        //regId = Helfer.getRegistrationId(context);
 
         if (TextUtils.isEmpty(regId)) {
 
             registerInBackground();
 
-            Log.d("RegisterActivity",
-                    "registerGCM - successfully registered with GCM server - regId: "
-                            + regId);
+            Log.d("RegisterActivity", "registerGCM - successfully registered with GCM server - regId: " + regId);
         } else {
             Toast.makeText(getApplicationContext(),
-                    "RegId already available. RegId: " + regId,
+                    "RegId already available",
                     Toast.LENGTH_SHORT).show();
         }
         return regId;
@@ -245,9 +238,9 @@ public class RegisterActivity extends Activity {
                     regId = gcm.register(Config.GPID);
                     Log.d("RegisterActivity", "registerInBackground - regId: "
                             + regId);
-                    msg = "Device registered, registration ID=" + regId;
+                    msg = "Device wurde registriert";
 
-                    StoreRegistrationId(context, regId);
+                    Helfer.StoreRegistrationID(RegisterActivity.this, regId);
                 } catch (IOException ex) {
                     msg = "Error :" + ex.getMessage();
                     Log.d("RegisterActivity", "Error: " + msg);
@@ -274,15 +267,4 @@ public class RegisterActivity extends Activity {
     private void registerInBackground() {
         new RegisterInBackgroundTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
-
-    private void StoreRegistrationId(Context context, String regId) {
-        final SharedPreferences prefs = getSharedPreferences(MainActivity.class.getSimpleName(), Context.MODE_PRIVATE);
-        int appVersion = Helfer.getAppVersion(context);
-        Log.i(TAG, "Saving regId on app version " + appVersion);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(REG_ID, regId);
-        editor.putInt(APP_VERSION, appVersion);
-        editor.commit();
-    }
-
 }

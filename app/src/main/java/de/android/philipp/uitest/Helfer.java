@@ -30,13 +30,20 @@ public class Helfer {
         dialog.setCancelable(cancelable);
     }
 
-    public static  void StoreUsername(Context context, String username) {
+    public static void StoreUsername(Context context, String username) {
         final SharedPreferences prefs = context.getSharedPreferences(MainActivity.class.getSimpleName(), Context.MODE_PRIVATE);
-        int appVersion = Helfer.getAppVersion(context);
         Log.i("Helfer", "Store username");
         SharedPreferences.Editor editor = prefs.edit();
-
         editor.putString(REG_USERNAME, username);
+        editor.commit();
+    }
+
+    public static void StoreRegistrationID(Context context, String regId) {
+        final SharedPreferences prefs = context.getSharedPreferences(MainActivity.class.getSimpleName(), Context.MODE_PRIVATE);
+        int appVersion = Helfer.getAppVersion(context);
+        Log.i("Helfer", "Store RegID");
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(REG_ID, regId);
         editor.commit();
     }
 
@@ -48,6 +55,15 @@ public class Helfer {
             return "";
         }
         return username;
+    }
+
+    public static void Logout(Context context)
+    {
+        final SharedPreferences prefs = context.getSharedPreferences(MainActivity.class.getSimpleName(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(REG_USERNAME, "");
+        editor.putString(REG_ID, "");
+        editor.commit();
     }
 
     public static String getRegistrationId(Context context) {

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -18,10 +19,13 @@ public class MainActivity extends Activity {
         findViewById(R.id.btnProfil).setOnClickListener(onClickListener);
         findViewById(R.id.btnMyGroups).setOnClickListener(onClickListener);
         findViewById(R.id.btnFriends).setOnClickListener(onClickListener);
-        findViewById(R.id.btnAGB).setOnClickListener(onClickListener);
+        findViewById(R.id.btnLogout).setOnClickListener(onClickListener);
         findViewById(R.id.btnGroupSearch).setOnClickListener(onClickListener);
         findViewById(R.id.btnUserSearch).setOnClickListener(onClickListener);
         findViewById(R.id.btnSettings).setOnClickListener(onClickListener);
+
+        String regId = Helfer.getRegistrationId(MainActivity.this);
+        Toast.makeText(getApplicationContext(), regId, Toast.LENGTH_SHORT).show();
     }
 
     private View.OnClickListener onClickListener = new View.OnClickListener()
@@ -32,8 +36,9 @@ public class MainActivity extends Activity {
 
             switch (v.getId())
             {
-                case R.id.btnAGB:
-                    //ActivityStarten(CreateActivity.class);
+                case R.id.btnLogout:
+                    Helfer.Logout(MainActivity.this);
+                    ActivityStarten(RegisterActivity.class);
                     break;
                 case R.id.btnFriends:
                     ActivityStarten(FriendlistActivity.class);
