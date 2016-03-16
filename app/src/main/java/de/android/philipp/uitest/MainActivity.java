@@ -2,11 +2,17 @@ package de.android.philipp.uitest;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+
+import java.io.IOException;
 
 public class MainActivity extends Activity {
 
@@ -37,8 +43,7 @@ public class MainActivity extends Activity {
             switch (v.getId())
             {
                 case R.id.btnLogout:
-                    Helfer.Logout(MainActivity.this);
-                    ActivityStarten(RegisterActivity.class);
+                    new LogOutInBackgroundTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     break;
                 case R.id.btnFriends:
                     ActivityStarten(FriendlistActivity.class);
@@ -99,5 +104,36 @@ public class MainActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public  class LogOutInBackgroundTask extends AsyncTask<String, Void, String> {
+        protected void onPreExecute()
+        {
+        }
+
+        public LogOutInBackgroundTask()
+        {
+        }
+
+        protected String doInBackground(String... werte)
+        {
+            try
+            {
+                InteractWithServer.DeleteRegistration(Helfer.getUsername(MainActivity.this), Helfer.getRegistrationId(MainActivity.this));
+            }
+            catch (final Exception e)
+            {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        protected void onPostExecute(String result)
+        {
+            Helfer.Logout(MainActivity.this);
+            Toast.makeText(getApplicationContext(), "Sie wurden ausgeloggt", Toast.LENGTH_SHORT).show();
+            ActivityStarten(RegisterActivity.class);
+        }
+
     }
 }

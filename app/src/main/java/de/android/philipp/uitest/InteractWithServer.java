@@ -286,6 +286,31 @@ public class InteractWithServer {
         return quellcode.toString().equals("1");
     }
 
+    public static void DeleteRegistration(final String user, final String regID)throws IOException {
+
+        URL url = null;
+        StringBuilder quellcode = new StringBuilder();
+        try {
+            url = new URL(Config.DELETE_REGID_URL + "ID=" + regID + "&username=" + user);
+
+            String readLine = null;
+            String sResult = null;
+
+            BufferedReader buffReader = new BufferedReader (new InputStreamReader (url.openStream (),"UTF-8"));
+            while ((readLine = buffReader.readLine ()) != null) {
+                if (sResult == null) {
+                    quellcode.append(readLine);
+
+                }
+                else {
+                    quellcode.append(readLine);
+                }
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static String GetAllGroupsFromServer(final String filter)throws IOException {
 
         URL url = null;

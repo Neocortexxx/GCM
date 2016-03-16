@@ -9,6 +9,7 @@ public interface Config {
     static final String CHECK_USER_URL = "http://homeserverpb.no-ip.org/gcm/checkUsername.php?";
     static final String CHECK_LOGIN_URL = "http://homeserverpb.no-ip.org/gcm/checkLogin.php?";
     static final String CHECK_REGID_URL = "http://homeserverpb.no-ip.org/gcm/checkRegistration.php?";
+    static final String DELETE_REGID_URL = "http://homeserverpb.no-ip.org/gcm/deleteRegistration.php?";
     static final String GET_ALL_GROUPS_URL = "http://homeserverpb.no-ip.org/gcm/allGroups.php?";
     static final String GET_ALL_USERS_URL = "http://homeserverpb.no-ip.org/gcm/allUsers.php?";
     static final String GET_MY_GROUPS_URL = "http://homeserverpb.no-ip.org/gcm/myGroups.php?";

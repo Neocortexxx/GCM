@@ -27,12 +27,6 @@ public class RegisterActivity extends Activity {
     Context context;
     String regId;
 
-    public static final String REG_ID = "regId";
-    public static final String REG_USERNAME = "username";
-    private static final String APP_VERSION = "appVersion";
-
-    static final String TAG = "Register Activity";
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +79,10 @@ public class RegisterActivity extends Activity {
                     Toast.LENGTH_SHORT).show();
         }
         return regId;
+    }
+
+    private void registerInBackground() {
+        new RegisterInBackgroundTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     public  class RegisterOnServer extends AsyncTask<String, Void, String>  {
@@ -173,6 +171,7 @@ public class RegisterActivity extends Activity {
                     {
                         result = "success";
                         Helfer.StoreUsername(RegisterActivity.this, username);
+                        Helfer.StoreRegistrationID(RegisterActivity.this, regId);
                         InteractWithServer.CheckRegistration(username, regId);
                     }
                     else
@@ -219,7 +218,6 @@ public class RegisterActivity extends Activity {
     public  class RegisterInBackgroundTask extends AsyncTask<String, Void, String> {
         protected void onPreExecute()
         {
-
         }
 
         public RegisterInBackgroundTask()
@@ -264,7 +262,5 @@ public class RegisterActivity extends Activity {
 
     }
 
-    private void registerInBackground() {
-        new RegisterInBackgroundTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-    }
+
 }

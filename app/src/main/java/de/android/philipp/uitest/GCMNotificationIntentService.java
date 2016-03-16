@@ -53,12 +53,12 @@ public class GCMNotificationIntentService extends IntentService {
 
         String msg = "Neue Gruppenanfrage von " + inviter + ": Einladung in die Gruppe " + groupname;
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-                this).setSmallIcon(R.drawable.hots)
+                this).setSmallIcon(R.drawable.note)
                 .setContentTitle("GCM Notification")
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
                 .setContentText(msg)
-                .addAction(R.drawable.hots,"Annehmen", contentIntentAnnehmen)
-                .addAction(R.drawable.hots,"Ablehnen", contentIntentAblehnen);
+                .addAction(R.drawable.note,"Annehmen", contentIntentAnnehmen)
+                .addAction(R.drawable.note,"Ablehnen", contentIntentAblehnen);
 
 
         mBuilder.setContentIntent(contentIntentAnnehmen);
